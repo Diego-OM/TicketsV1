@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-body',
+  templateUrl: './body.component.html',
+  styleUrls: ['./body.component.css']
 })
-export class AppComponent {
-  title = 'EcommerceV1';
+export class BodyComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
   displayStyle = "none";
   displayTicketTable = "none";
 
