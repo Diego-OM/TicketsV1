@@ -7,6 +7,7 @@ import { HeaderComponent } from './Components/Header/header/header.component';
 import { BodyComponent } from './Components/Body/body/body.component';
 import { EventsmodalComponent } from './Modals/EventsModal/eventsmodal/eventsmodal.component';
 import { TicketsmodalComponent } from './Modals/TicketsModal/ticketsmodal/ticketsmodal.component';
+import { EventsComponent } from './Components/Events/events/events.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TicketsmodalComponent } from './Modals/TicketsModal/ticketsmodal/ticket
     HeaderComponent,
     BodyComponent,
     EventsmodalComponent,
-    TicketsmodalComponent
+    TicketsmodalComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,

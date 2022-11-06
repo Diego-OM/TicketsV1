@@ -1,97 +1,180 @@
+<app-header></app-header>
+
 <div class="container-fluid" style="padding-top: 2%;">
  
-    <div class="row">
-      <div class="col-md-2 offset-md-2">
-        <div class="card" (click)="openPopup()">
-          <div class="card-header"> 
-            <h6 style="text-align: center;">Eventos</h6>
-          </div>
-          <div class="card-body">
-            <h1 style="text-align: center;">4</h1>
-          </div>
+  <div class="row">
+    <div class="col-md-2 offset-md-2">
+      <div class="card" (click)="openPopup()">
+        <div class="card-header"> 
+          <h6 style="text-align: center;">Eventos</h6>
         </div>
-      </div>
-  
-      <div class="col-md-2">
-        <div class="card" (click)="openTicketTableModal()">
-          <div class="card-header">
-            <h6 style="text-align: center;">Boletos Activos</h6>
-          </div>
-          <div class="card-body">
-            <h1 style="text-align: center;">54</h1>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-2">
-        <div class="card" (click)="openPopup()">
-          <div class="card-header">
-            <h6 style="text-align: center;">Boletos Canjeados</h6>
-          </div>
-          <div class="card-body">
-            <h1 style="text-align: center;">13</h1>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-2">
-        <div class="card" (click)="openPopup()">
-          <div class="card-header">
-            <h6 style="text-align: center;">Boletos Cancelados</h6>
-          </div>
-          <div class="card-body">
-            <h1 style="text-align: center;">13</h1>
-          </div>
+        <div class="card-body">
+          <h1 style="text-align: center;">4</h1>
         </div>
       </div>
     </div>
-    <div class="row">
-    <div class="col-md-8 offset-md-2" style="padding-top: 3%;">
-          <div class="card">
-            <div class="card-header">
-              <h6 style="text-align: center;">Generate QR</h6>
-            </div>
-  
-            <div class="card-body">
-  
-              <form>
-                <div class="form-group">
-                  <label for="">Nombre del Evento</label>
-                  <br>
-                  <input type="email" class="form-control" id="" aria-describedby="emailHelp">
-                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="">Fecha</label>
-                  <br>
-                  <input type="datetime" class="form-control" id="">
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="">Numero de Boletos</label>
-                  <br>
-                  <input type="datetime" class="form-control" id="">
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="">Lista de Invitados</label>
-                  <br>
-                  <input type="file" class="form-control" id="">
-                </div>
-                <br>
-                <div class="form-group form-check">
-                  <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
-                  <!-- <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
-                </div>
-                <button type="button" class="btn btn-primary" >
-                  Aceptar
-                </button>            </form>
-            </div>
-  
-           
-          </div>
+
+    <div class="col-md-2">
+      <div class="card" (click)="openTicketTableModal()">
+        <div class="card-header">
+          <h6 style="text-align: center;">Boletos Activos</h6>
+        </div>
+        <div class="card-body">
+          <h1 style="text-align: center;">54</h1>
+        </div>
+      </div>
     </div>
+
+    <div class="col-md-2">
+      <div class="card" (click)="openPopup()">
+        <div class="card-header">
+          <h6 style="text-align: center;">Boletos Canjeados</h6>
+        </div>
+        <div class="card-body">
+          <h1 style="text-align: center;">13</h1>
+        </div>
+      </div>
     </div>
-  
+
+    <div class="col-md-2">
+      <div class="card" (click)="openPopup()">
+        <div class="card-header">
+          <h6 style="text-align: center;">Boletos Cancelados</h6>
+        </div>
+        <div class="card-body">
+          <h1 style="text-align: center;">13</h1>
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="row">
+  <div class="col-md-8 offset-md-2" style="padding-top: 3%;">
+        <div class="card">
+          <div class="card-header">
+            <h6 style="text-align: center;">Generate QR</h6>
+          </div>
+
+          <div class="card-body">
+
+            <form>
+              <div class="form-group">
+                <label for="">Nombre del Evento</label>
+                <br>
+                <input type="email" class="form-control" id="" aria-describedby="emailHelp">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="">Fecha</label>
+                <br>
+                <input type="datetime" class="form-control" id="">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="">Numero de Boletos</label>
+                <br>
+                <input type="datetime" class="form-control" id="">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="">Lista de Invitados</label>
+                <br>
+                <input type="file" class="form-control" id="">
+              </div>
+              <br>
+              <div class="form-group form-check">
+                <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+                <!-- <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
+              </div>
+              <button type="button" class="btn btn-primary" >
+                Aceptar
+              </button>            </form>
+          </div>
+
+         
+        </div>
+  </div>
+  </div>
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Eventos</h4>
+      </div>
+      <div class="modal-body">
+        
+        <ul class="list-group">
+          <li class="list-group-item">Evento 1</li>
+          <button class="btn btn-primary" (click)="navigateToComponent()">Ver Evento</button>
+          <li class="list-group-item">Evento 2</li>
+          <li class="list-group-item">Evento 3</li>
+        </ul>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayTicketTable}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Lista de Boletos</h4>
+      </div>
+      <div class="modal-body">
+        
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" 
+                >
+          Add
+        </button>
+        <button type="button" class="btn btn-danger" 
+                (click)="closeTicketTableModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
