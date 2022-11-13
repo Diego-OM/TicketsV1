@@ -33,7 +33,7 @@ stages:
       - task: ArchiveFiles@2
         displayName: 'Archive files'
         inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/TicketsV1/'
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/TicketsV1/dist'
           includeRootFolder: false
           archiveType: zip
           archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
