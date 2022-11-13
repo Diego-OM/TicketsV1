@@ -25,7 +25,7 @@ steps:
     azureSubscription: 'AzureSubscription(666998be-481a-49b3-8eea-b9ebb381b6ab)'
     appType: 'webAppLinux'
     WebAppName: 'TicketsV1WebApp'
-    packageForLinux: '.dist/TicketsV1'
+    packageForLinux: 'TicketsV1/dist/'
     RuntimeStack: 'NODE|16-lts'
     
 - task: DownloadBuildArtifacts@1
