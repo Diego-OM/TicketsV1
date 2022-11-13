@@ -23,6 +23,6 @@ steps:
     azureSubscription: 'AzureSubscription(666998be-481a-49b3-8eea-b9ebb381b6ab)'
     appType: 'webAppLinux'
     appName: 'TicketsV1WebApp'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '/wwwroot'
     runtimeStack: 'NODE|16-lts'
 
