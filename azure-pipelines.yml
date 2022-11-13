@@ -1,9 +1,4 @@
 # Node.js with Angular
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'Artifact'
-    publishLocation: 'pipeline'
 # Build a Node.js project that uses Angular.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -23,15 +18,11 @@ steps:
 - script: |
     npm install -g @angular/cli
 
-- task: AzureRmWebAppDeployment@4
+- task: AzureWebApp@1
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'AzureSubscription(666998be-481a-49b3-8eea-b9ebb381b6ab)'
     appType: 'webAppLinux'
-    WebAppName: 'TicketsV1WebApp'
-    deployToSlotOrASE: true
-    ResourceGroupName: 'TicketsV1ResourceGroup'
-    SlotName: 'production'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/dist'
-    RuntimeStack: 'NODE|16-lts'
-    StartupCommand: 'pm2 serve /home/site/wwwroot -no-daemon-spa'
+    appName: 'TicketsV1WebApp'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'NODE|16-lts'
+
