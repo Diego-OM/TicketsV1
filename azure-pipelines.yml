@@ -20,7 +20,6 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'AzureSubscription(666998be-481a-49b3-8eea-b9ebb381b6ab)'
     appType: 'webAppLinux'
     WebAppName: 'TicketsV1WebApp'
     deployToSlotOrASE: true
@@ -28,7 +27,3 @@ steps:
     SlotName: 'production'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
     RuntimeStack: 'NODE|16-lts'
-    StartupCommand: 'ng serve'
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
