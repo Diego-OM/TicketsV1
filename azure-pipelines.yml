@@ -17,12 +17,16 @@ steps:
 
 - script: |
     npm install -g @angular/cli
-
-- task: AzureWebApp@1
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'AzureSubscription(666998be-481a-49b3-8eea-b9ebb381b6ab)'
     appType: 'webAppLinux'
-    appName: 'TicketsV1WebApp'
-    package: '/wwwroot'
-    runtimeStack: 'NODE|16-lts'
+    WebAppName: 'TicketsV1WebApp'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'TicketsV1ResourceGroup'
+    SlotName: 'production'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'NODE|16-lts'
+
 
