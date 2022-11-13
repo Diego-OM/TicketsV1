@@ -27,6 +27,6 @@ steps:
     deployToSlotOrASE: true
     ResourceGroupName: 'TicketsV1ResourceGroup'
     SlotName: 'production'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/dist'
     RuntimeStack: 'NODE|16-lts'
     StartupCommand: 'pm2 serve /home/site/wwwroot -no-daemon-spa'
