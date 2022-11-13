@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { QRServicesService } from '../../../Services/qrservices.service';
 
 @Component({
   selector: 'app-body',
@@ -8,12 +10,35 @@ import { Router } from '@angular/router';
 })
 export class BodyComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private qrCodeService: QRServicesService) { }
 
   ngOnInit(): void {
+
   }
   displayStyle = "none";
   displayTicketTable = "none";
+  displaySpinner = "none";
+  displayConfirmationOrError = "none";
+
+  qrCodeFormGroup = new FormGroup({
+    evento: new FormControl(''),
+    numeroDeBoletos: new FormControl('')
+  })
+
+  onSubmit(args: any){
+    this.qrCodeService.createQrCodes();
+    this.displaySpinner = "block";
+
+    setTimeout(() => {
+      this.displaySpinner = "none";
+      this.displayConfirmationOrError = "block";
+      this.qrCodeFormGroup.reset();
+    }, 5000);
+
+
+    console.log(args);
+  }
 
   openTicketTableModal(){
     this.displayTicketTable = "block";
@@ -21,6 +46,10 @@ export class BodyComponent implements OnInit {
 
   closeTicketTableModal(){
     this.displayTicketTable = "none";
+  }
+
+  closeConfirmationOrErrorModal(){
+    this.displayConfirmationOrError = "none";
   }
   
   openPopup() {
