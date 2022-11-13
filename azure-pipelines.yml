@@ -9,31 +9,23 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '16.10'
-  displayName: 'Install Node.js'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '16.x'
+        displayName: 'Install Node.js 16.x'
 
-- script: |
-    npm install -g @angular/cli
-
-
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'AzureSubscription(666998be-481a-49b3-8eea-b9ebb381b6ab)'
-    appType: 'webAppLinux'
-    WebAppName: 'TicketsV1WebApp'
-    packageForLinux: 'TicketsV1/dist/'
-    RuntimeStack: 'NODE|16-lts'
-    
-- task: DownloadBuildArtifacts@1
-  inputs:
-    buildType: 'specific'
-    project: 'e8dce740-df08-438d-8b10-c04517cfc5c1'
-    pipeline: '3'
-    specificBuildWithTriggering: true
-    buildVersionToDownload: 'latest'
-    downloadType: 'specific'
-    downloadPath: '$(System.ArtifactsDirectory)'
+      - script: |
+          cd TicketsV1/
+          npm install -g @angular/cli
+          npm install
+          ng build --prod
+        displayName: 'npm install and build'
+        workingDirectory: '$(Build.SourcesDirectory)'
