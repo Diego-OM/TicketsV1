@@ -18,15 +18,6 @@ steps:
 - script: |
     npm install -g @angular/cli
 
-- task: DownloadBuildArtifacts@1
-  inputs:
-    buildType: 'specific'
-    project: 'e8dce740-df08-438d-8b10-c04517cfc5c1'
-    pipeline: '3'
-    specificBuildWithTriggering: true
-    buildVersionToDownload: 'latest'
-    downloadType: 'specific'
-    downloadPath: '$(System.ArtifactsDirectory)'
 
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -36,3 +27,13 @@ steps:
     WebAppName: 'TicketsV1WebApp'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
     RuntimeStack: 'NODE|16-lts'
+    
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'specific'
+    project: 'e8dce740-df08-438d-8b10-c04517cfc5c1'
+    pipeline: '3'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    downloadType: 'specific'
+    downloadPath: '$(System.ArtifactsDirectory)'
