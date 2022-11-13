@@ -62,7 +62,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy App Service'
             inputs:
-              azureSubscription: 'Inform-your-subscription'
+              azureSubscription: 'AzureSubscription'
               appType: 'webAppLinux'
               appName: 'ticketsv1'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
