@@ -25,5 +25,5 @@ steps:
     deployToSlotOrASE: true
     resourceGroupName: 'TicketsV1ResourceGroup'
     slotName: 'production'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '/dist'
     runtimeStack: 'NODE|16-lts'
