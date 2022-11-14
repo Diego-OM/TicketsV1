@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "EcommerceV1"
+  "cli": {
+    "analytics": false
+  }
 }
