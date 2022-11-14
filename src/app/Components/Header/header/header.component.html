@@ -11,8 +11,33 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Eventos</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToValidarQR()">Validar QR</a>
+        </li>
         
       </ul>
     </div>
   </nav>
   
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayQrCodeReader}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          
+          <h6 style="text-align: center;">Validar Codigo QR</h6>
+          <zxing-scanner></zxing-scanner>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" 
+          (click)="validateQR()">Validar</button>
+          <button type="button" class="btn btn-danger" 
+          (click)="closeQrCodeReader()"> Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

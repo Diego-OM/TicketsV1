@@ -33,9 +33,11 @@ export class BodyComponent implements OnInit {
     setTimeout(() => {
       this.displaySpinner = "none";
       this.displayConfirmationOrError = "block";
+     
       this.qrCodeFormGroup.reset();
     }, 5000);
 
+     
 
     console.log(args);
   }
@@ -50,6 +52,9 @@ export class BodyComponent implements OnInit {
 
   closeConfirmationOrErrorModal(){
     this.displayConfirmationOrError = "none";
+
+
+    this.router.navigateByUrl('eventsComponent');
   }
   
   openPopup() {

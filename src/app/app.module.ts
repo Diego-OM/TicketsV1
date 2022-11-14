@@ -9,6 +9,7 @@ import { EventsmodalComponent } from './Modals/EventsModal/eventsmodal/eventsmod
 import { TicketsmodalComponent } from './Modals/TicketsModal/ticketsmodal/ticketsmodal.component';
 import { EventsComponent } from './Components/Events/events/events.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ZXingScannerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
