@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { QRServicesService } from '../../../Services/qrservices.service';
 
 @Component({
@@ -21,9 +21,9 @@ export class BodyComponent implements OnInit {
   displaySpinner = "none";
   displayConfirmationOrError = "none";
 
-  qrCodeFormGroup = new FormGroup({
-    evento: new FormControl(''),
-    numeroDeBoletos: new FormControl('')
+  qrCodeFormGroup = new UntypedFormGroup({
+    evento: new UntypedFormControl(''),
+    numeroDeBoletos: new UntypedFormControl('')
   })
 
   onSubmit(args: any){
