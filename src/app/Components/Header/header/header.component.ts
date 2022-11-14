@@ -2,6 +2,10 @@ import { AnimationMetadataType, query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import QrScanner from 'node_modules/qr-scanner';
+import { BarcodeFormat } from '@zxing/library';
+import { ViewChild } from '@angular/core';
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-header',
@@ -11,28 +15,45 @@ import QrScanner from 'node_modules/qr-scanner';
 
 export class HeaderComponent implements OnInit {
   displayQrCodeReader = "none";
-  videoElement!:HTMLVideoElement;
+  enableScanner = false;
+
+  @ViewChild('scanner', { static: false })
+  scanner: ZXingScannerComponent = new ZXingScannerComponent;
+
+  allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.enableScanner = false;
+    this.scanner.scanStop();
   }
 
   navigateHome(){
     this.router.navigateByUrl("/bodyComponent");
   }
 
-  goToValidarQR(){
+  async goToValidarQR(){
     this.displayQrCodeReader = "block";
+
+    this.scanner.askForPermission().then(r => {
+      this.enableScanner = true;
+    }).catch(e => {
+      console.log(e);
+    }).finally(() => {
+      this.scanner.scanStop();
+      console.log("Validar QR Termino")
+    })
+    
   }
 
   closeQrCodeReader(){
     this.displayQrCodeReader = "none";
+    this.enableScanner = false;
   }
 
-  validateQR(){
-    const qrScanner = new QrScanner(this.videoElement, result => console.log('decoded qr code:', result));
-
+  scanSuccessHandler($args: any){
+    console.log($args);
   }
 
 }

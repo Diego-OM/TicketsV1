@@ -30,11 +30,11 @@
         <div class="modal-body">
           
           <h6 style="text-align: center;">Validar Codigo QR</h6>
-          <zxing-scanner></zxing-scanner>
+          <zxing-scanner #scanner
+          [enable]="enableScanner" 
+          (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" 
-          (click)="validateQR()">Validar</button>
           <button type="button" class="btn btn-danger" 
           (click)="closeQrCodeReader()"> Close</button>
         </div>
