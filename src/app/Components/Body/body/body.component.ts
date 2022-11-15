@@ -27,7 +27,8 @@ export class BodyComponent implements OnInit {
   })
 
   onSubmit(args: any){
-    this.qrCodeService.createQrCodes();
+    debugger
+    this.qrCodeService.createQrCodes(3);
     this.displaySpinner = "block";
 
     setTimeout(() => {
@@ -36,8 +37,6 @@ export class BodyComponent implements OnInit {
      
       this.qrCodeFormGroup.reset();
     }, 5000);
-
-     
 
     console.log(args);
   }
