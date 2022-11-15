@@ -1,12 +1,9 @@
-import { AnimationMetadataType, query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
-import QrScanner from 'node_modules/qr-scanner';
 import { BarcodeFormat } from '@zxing/library';
 import { ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
-import { ThisReceiver } from '@angular/compiler';
-
+import { QRServicesService } from '../../../Services/qrservices.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -22,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private qrService :QRServicesService) { }
 
   ngOnInit(): void {
     this.enableScanner = false;
@@ -52,8 +49,10 @@ export class HeaderComponent implements OnInit {
     this.enableScanner = false;
   }
 
-  scanSuccessHandler($args: any){
-    console.log($args);
+  scanSuccessHandler(idBoleto: string){
+    var result = this.qrService.validateQR(idBoleto);
+    
+    return result;
   }
 
 }
