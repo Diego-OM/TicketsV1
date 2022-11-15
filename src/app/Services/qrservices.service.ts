@@ -12,27 +12,16 @@ export interface IQRCode{
 })
 
 export class QRServicesService {
-
   constructor(private httpClient : HttpClient) { }
 
-  createQrCodes(numeroDeBoletos: number){
+  createQrCodes(nombreDelEvento:string,ticketNumber:number){
     
-    const headers = new Headers()
-    .set('Access-Control-Allow-Origin','*');
-  
-    
-    const requestOptions = {  headers: headers}; 
-
     var body = {
-      "nombreDelEvento":"diegoTest",
-      "numeroDeBoletos": 3,
+      "nombreDelEvento": nombreDelEvento,
+      "numeroDeBoletos": ticketNumber,
     }
     
-    this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?code=bdKzELtX4X_p1Hrd_1zSW64lrDYk8M5Oqvv3jieporW5AzFuo9luog==',body).subscribe(data => {
-    console.log(data);
-   });
-
-   
+    this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?code=bdKzELtX4X_p1Hrd_1zSW64lrDYk8M5Oqvv3jieporW5AzFuo9luog==',body).subscribe();
   }
 
   validateQR(qr: string){

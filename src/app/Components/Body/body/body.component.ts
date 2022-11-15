@@ -27,8 +27,7 @@ export class BodyComponent implements OnInit {
   })
 
   onSubmit(args: any){
-    debugger
-    this.qrCodeService.createQrCodes(3);
+    this.qrCodeService.createQrCodes(args.value.evento,args.value.numeroDeBoletos);
     this.displaySpinner = "block";
 
     setTimeout(() => {
@@ -38,7 +37,6 @@ export class BodyComponent implements OnInit {
       this.qrCodeFormGroup.reset();
     }, 5000);
 
-    console.log(args);
   }
 
   openTicketTableModal(){
