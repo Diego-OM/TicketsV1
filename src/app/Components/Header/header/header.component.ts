@@ -52,14 +52,16 @@ export class HeaderComponent implements OnInit {
   }
   
   
-  scanSuccessHandler($args: any){
+  async scanSuccessHandler($args: any){
     var qrCode = new QRCode();
     
     Object.assign(qrCode, JSON.parse($args));
 
-    var result = this.qrService.validateQR(`Ticket (${qrCode.idBoleto})`, qrCode.nombreDelEvento);
-    console.log(result);
-    return result;
+    if(await this.qrService.validateQR(`Ticket (${qrCode.idBoleto})`, qrCode.nombreDelEvento)){
+      console.log("ticket Valid")
+    }else{
+      console.log("ticket invalid")
+    }
   }
 
 }
