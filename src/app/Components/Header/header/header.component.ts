@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
     
     Object.assign(qrCode, JSON.parse($args));
 
-    var result = this.qrService.validateQR(qrCode.idBoleto, qrCode.nombreDelEvento);
+    var result = this.qrService.validateQR(`Ticket (${qrCode.idBoleto})`, qrCode.nombreDelEvento);
     console.log(result);
     return result;
   }
