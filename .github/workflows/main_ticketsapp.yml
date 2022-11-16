@@ -30,8 +30,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: node-app
-          path: .
+         name: ecommerceV1
+         path: dist/ecommerce-v1/
 
   deploy:
     runs-on: ubuntu-latest
