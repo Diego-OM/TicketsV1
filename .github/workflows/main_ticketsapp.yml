@@ -15,10 +15,14 @@ env:
   NODE_VERSION: '16.x'
 
 jobs:
+
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: actions/checkout@master
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
