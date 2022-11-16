@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ecommerce-v1
-          path: $(System.DefaultWorkingDirectory)/dist/ecommerce-v1)
+          path: $(System.DefaultWorkingDirectory)/dist/ecommerce-v1}}
 
   deploy:
     runs-on: ubuntu-latest
