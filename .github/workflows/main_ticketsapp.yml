@@ -51,4 +51,3 @@ jobs:
           app-name: 'TicketsApp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2A0363D4D6A24F71A12CDAD0742CDCE5 }}
-          package: .
