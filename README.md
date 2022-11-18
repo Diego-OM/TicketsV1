@@ -1,6 +1,8 @@
-# EcommerceV1
+# TicketsV1
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+
+//Front End of TicketsV1, webapp to generate qr codes, manage them, validate them, send them trough email.
 
 ## Development server
 
