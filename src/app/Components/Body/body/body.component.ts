@@ -46,10 +46,7 @@ export class BodyComponent implements OnInit {
       this.qrCodeFormGroup.reset();
     }, 5000);
 
-    this.sendGridService.sendEmail().subscribe(res => {
-      this.emailResponse = res;
-      //console.log(this.emailResponse);
-    })
+    
    } catch (error) {
     debugger
       console.log(error);

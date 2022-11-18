@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit {
     this.enableScanner = false;
     var res: any;
     var req = JSON.parse($args)
-    this.qrService.validateQR(req.idBoleto, req.nombreDelEvento)
+    this.qrService.validateQR(req.idBoleto, req.nombreDelEvento.toLowerCase())
     .subscribe(data => {
       res = data;
       if(res == "Ticket Valid!"){
