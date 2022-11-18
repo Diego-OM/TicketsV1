@@ -76,7 +76,7 @@ export class BodyComponent implements OnInit {
   }
 
   closePopup() {
-    this.displayStyle = "none";
+    this.displayEventsModal = "none";
   }
 
   getEventList(event: string){
