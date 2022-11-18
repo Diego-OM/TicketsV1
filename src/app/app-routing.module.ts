@@ -4,7 +4,9 @@ import { BodyComponent } from './Components/Body/body/body.component';
 import { EventsComponent } from './Components/Events/events/events.component';
 
 const routes: Routes = [
+
   { path: 'eventsComponent', component: EventsComponent },
+  { path: 'eventsComponent/:id', component: EventsComponent },
   { path: 'bodyComponent', component: BodyComponent },
 ];
 

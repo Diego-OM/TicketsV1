@@ -6,12 +6,12 @@
  
   <div class="row">
     <div class="col-md-2 offset-md-2">
-      <div class="card" (click)="openPopup()">
+      <div class="card" (click)="openEventsModal()">
         <div class="card-header"> 
           <h6 style="text-align: center;">Eventos</h6>
         </div>
         <div class="card-body">
-          <h1 style="text-align: center;">4</h1>
+          <h1 style="text-align: center;">{{this.numberOfEvents}}</h1>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="col-md-2">
-      <div class="card" (click)="openPopup()">
+      <div class="card" (click)="openEventsModal()">
         <div class="card-header">
           <h6 style="text-align: center;">Boletos Canjeados</h6>
         </div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-md-2">
-      <div class="card" (click)="openPopup()">
+      <div class="card" (click)="openEventsModal()">
         <div class="card-header">
           <h6 style="text-align: center;">Boletos Cancelados</h6>
         </div>
@@ -58,7 +58,7 @@
 
           <div class="card-body">
 
-            <form [formGroup]="qrCodeFormGroup" (ngSubmit)="onSubmit(qrCodeFormGroup)">
+            <form #form [formGroup]="qrCodeFormGroup" (ngSubmit)="onSubmit(qrCodeFormGroup)">
               <div class="form-group">
                 <label for="">Nombre del Evento</label>
                 <br>
@@ -72,7 +72,8 @@
                 <input id="numeroDeBoletos" formControlName="numeroDeBoletos" type="text" class="form-control">
               </div>
               <br>
-              <button class="btn btn-primary" type="submit">Crear Codigos Qr</button>
+              <button class="btn btn-primary" type="submit" [disabled]="!qrCodeFormGroup.valid" >Crear Codigos Qr</button>
+             
             </form>
 
 
@@ -85,7 +86,7 @@
 
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayEventsModal}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -93,18 +94,24 @@
         
       </div>
       <div class="modal-body">
-        <ul class="list-group">
-          <li class="list-group-item">Evento 1 <span><button style="margin-left: 60%;" class="btn btn-primary" (click)="navigateToComponent()">Ver Evento</button></span></li>
-          <li class="list-group-item">Evento 2 <span><button style="margin-left: 60%;" class="btn btn-primary" (click)="navigateToComponent()">Ver Evento</button></span></li>
-          <li class="list-group-item">Evento 3 <span><button style="margin-left: 60%;" class="btn btn-primary" (click)="navigateToComponent()">Ver Evento</button></span></li>
-          
+     
+        <ul class="list-group" *ngFor="let event of this.eventList">
+         <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <li class="list-group-item">{{event}}</li>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-primary" (click)="navigateToEvent(event)">Ver Evento</button>
+            </div>
+            </div>
+         </div>
         </ul>
-  
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" 
+        <button type="button" class="btn btn-danger"
                 (click)="closePopup()">
-          Close
+          Cancelar
         </button>
       </div>
     </div>
@@ -178,7 +185,7 @@
       </div>
       <div class="modal-footer">
        
-        <button type="button" class="btn btn-danger" 
+        <button  type="button" class="btn btn-danger"
                 (click)="closeConfirmationOrErrorModal()">
           Close
         </button>

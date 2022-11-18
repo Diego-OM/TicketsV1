@@ -73,17 +73,15 @@
         </div>
   
         <div class="table-responsive">
-          <table class="table table-striped table-sm" data="data">
+          <table class="table table-striped table-sm">
             <thead> 
               <tr>
                 <th scope="col">ID Boleto</th>
-                <th scope="col">Evento</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let element of data | async">
-                <td result]="element.idBoleto"></td>
-                <td result]="element.nombreEvento"></td>
+              <tr *ngFor="let qr of this.tableData">
+                <td>{{qr}}</td>
               </tr>
             </tbody>
           </table>

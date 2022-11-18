@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { QRServicesService } from '../../../Services/qrservices.service';
+import { SendgridService } from 'src/app/Services/sendgrid.service';
+import { ThisReceiver } from '@angular/compiler';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-body',
@@ -9,12 +12,16 @@ import { QRServicesService } from '../../../Services/qrservices.service';
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
-
+  eventList : any;
+  emailResponse: any;
+  displayEventsModal = "none";
+  numberOfEvents = 0;
   constructor(private router: Router,
-    private qrCodeService: QRServicesService) { }
+    private qrCodeService: QRServicesService,
+    private sendGridService: SendgridService) { }
 
   ngOnInit(): void {
-
+    this.getEventList('');
   }
   displayStyle = "none";
   displayTicketTable = "none";
@@ -22,21 +29,31 @@ export class BodyComponent implements OnInit {
   displayConfirmationOrError = "none";
 
   qrCodeFormGroup = new UntypedFormGroup({
-    evento: new UntypedFormControl(''),
-    numeroDeBoletos: new UntypedFormControl('')
+    evento: new UntypedFormControl('', Validators.required),
+    numeroDeBoletos: new UntypedFormControl('', Validators.required)
   })
 
+  
+
   onSubmit(args: any){
-    this.qrCodeService.createQrCodes(args.value.evento,args.value.numeroDeBoletos);
+   try {
+    this.qrCodeService.createQrCodes(args.value.evento,args.value.numeroDeBoletos).subscribe();
     this.displaySpinner = "block";
 
     setTimeout(() => {
       this.displaySpinner = "none";
       this.displayConfirmationOrError = "block";
-     
       this.qrCodeFormGroup.reset();
     }, 5000);
 
+    this.sendGridService.sendEmail().subscribe(res => {
+      this.emailResponse = res;
+      //console.log(this.emailResponse);
+    })
+   } catch (error) {
+    debugger
+      console.log(error);
+   }
   }
 
   openTicketTableModal(){
@@ -50,19 +67,28 @@ export class BodyComponent implements OnInit {
   closeConfirmationOrErrorModal(){
     this.displayConfirmationOrError = "none";
 
-
-    this.router.navigateByUrl('eventsComponent');
   }
   
-  openPopup() {
-    this.displayStyle = "block";
+  openEventsModal() {
+    this.displayEventsModal = "block";
+    this.getEventList('test1');
+    
   }
+
   closePopup() {
     this.displayStyle = "none";
   }
 
-  navigateToComponent(){
-    this.router.navigateByUrl("/eventsComponent");
+  getEventList(event: string){
+    this.qrCodeService.getEventList(event).subscribe(data => {
+      
+      this.eventList = data;
+      this.numberOfEvents = this.eventList.length;
+    })
+  }
+
+  navigateToEvent(event:Object){
+    this.router.navigateByUrl("/eventsComponent/" + event);
   }
  
 }

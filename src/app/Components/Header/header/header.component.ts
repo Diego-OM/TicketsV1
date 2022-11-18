@@ -14,7 +14,10 @@ import { QRCode } from '../../../Classes/QRCode';
 
 export class HeaderComponent implements OnInit {
   displayQrCodeReader = "none";
+  displayConfirmation = "none";
   enableScanner = false;
+  confirmationMessage = "";
+  displayConfirmationCheckMark = "none";
 
   @ViewChild('scanner', { static: false })
   scanner: ZXingScannerComponent = new ZXingScannerComponent;
@@ -25,23 +28,33 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.enableScanner = false;
-    this.scanner.scanStop();
+  }
+
+  goToEventos(){
+    this.router.navigateByUrl('/eventsComponent')
   }
 
   navigateHome(){
     this.router.navigateByUrl("/bodyComponent");
   }
 
+
+  closeConfirmation(){
+    this.displayConfirmation = "none";
+  }
+
   async goToValidarQR(){
     this.displayQrCodeReader = "block";
 
     this.scanner.askForPermission().then(r => {
+      if(!r){
+        this.scanner.askForPermission()
+      }
       this.enableScanner = true;
     }).catch(e => {
       console.log(e);
     }).finally(() => {
       this.scanner.scanStop();
-      console.log("Validar QR Termino")
     })
     
   }
@@ -49,19 +62,40 @@ export class HeaderComponent implements OnInit {
   closeQrCodeReader(){
     this.displayQrCodeReader = "none";
     this.enableScanner = false;
+   
+  }
+
+  async scanErrorHandler($args: any){
+
   }
   
   
   async scanSuccessHandler($args: any){
-    var qrCode = new QRCode();
-    
-    Object.assign(qrCode, JSON.parse($args));
+    this.enableScanner = false;
+    var res: any;
+    var req = JSON.parse($args)
+    this.qrService.validateQR(req.idBoleto, req.nombreDelEvento)
+    .subscribe(data => {
+      res = data;
+      if(res == "Ticket Valid!"){
+        this.confirmationMessage = "Ticket Is Valid"
+        this.displayQrCodeReader = "none"
+        this.displayConfirmation = "block";
+        this.displayConfirmationCheckMark = "block"
+      }else if(res == "Ticket Not Found"){
+        this.displayQrCodeReader = "none"
+        this.displayConfirmationCheckMark = "none"
+        this.confirmationMessage = "Ticket Not Found"
+        this.displayConfirmation = "block"
+      }else if(res == "Event Not Found!"){
+        this.displayQrCodeReader = "none"
+        this.confirmationMessage ="Event Not Found!"
+        this.displayConfirmation = "block"
+        this.displayConfirmationCheckMark = "none"
 
-    if(await this.qrService.validateQR(`Ticket (${qrCode.idBoleto})`, qrCode.nombreDelEvento)){
-      console.log("ticket Valid")
-    }else{
-      console.log("ticket invalid")
-    }
+      }
+    })
+     
   }
 
 }
