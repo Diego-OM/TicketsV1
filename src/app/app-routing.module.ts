@@ -5,11 +5,11 @@ import { EventsComponent } from './Components/Events/events/events.component';
 
 const routes: Routes = [
 
-  { path: './', component: BodyComponent },
+  { path: './*', component: BodyComponent },
   { path: 'eventsComponent', component: EventsComponent },
   { path: 'eventsComponent/:id', component: EventsComponent },
   { path: 'bodyComponent', component: BodyComponent },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
