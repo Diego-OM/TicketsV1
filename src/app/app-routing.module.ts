@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'eventsComponent', component: EventsComponent },
   { path: 'eventsComponent/:id', component: EventsComponent },
   { path: 'bodyComponent', component: BodyComponent },
+  { path: '',   redirectTo: '/bodyComponent', pathMatch: 'full' }, 
   { path: '**', component: BodyComponent },
 ]
 
