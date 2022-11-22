@@ -18,6 +18,17 @@
         
       </ul>
     </div>
+
+    <div class="col-md-3">
+      <p *ngIf="this.currentUser != null">{{this.currentUser}}</p>
+      <button class="icon-button" (click)="login()" *ngIf="!this.currentUser">
+        <img class="icon" src="assets/add-user.png" style="height: 26px; width:26px;">
+      </button>
+      <button class="icon-button" (click)="logOut()" *ngIf="this.currentUser">
+        <img class="icon" src="assets/logout.png" style="height: 26px; width:26px;">
+      </button>
+     
+    </div>
   </nav>
   
 

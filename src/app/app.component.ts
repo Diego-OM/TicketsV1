@@ -1,6 +1,6 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +8,30 @@ import { Router } from '@angular/router'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'EcommerceV1';
+  title = 'TicketsV1';
   displayStyle = "none";
   displayTicketTable = "none";
-
-  constructor(private router: Router){
-
+  isIframe = false;
+  loginDisplay = false;
+  isAuthenticated = false;
+  activeUser = "";
+  accessToken = "";
+  
+  constructor(private router: Router,
+    private msalService: MsalService){ }
+ 
+  ngOnInit(): void {
+   
+    // const tokenRequest = {
+    //     scopes: ["user.read"]
+    // };
+    
+    // this.msalService.ssoSilent(tokenRequest)
+    // .subscribe(observer => {
+    //   this.accessToken = observer.accessToken;
+    // })
   }
+
   openTicketTableModal(){
     this.displayTicketTable = "block";
   }
@@ -26,11 +43,15 @@ export class AppComponent implements OnInit {
   openPopup() {
     this.displayStyle = "block";
   }
+  
   closePopup() {
     this.displayStyle = "none";
   }
-  
-  ngOnInit(): void {
-    this.router.navigateByUrl("/bodyComponent");
+
+  login(){
+    this.msalService.loginRedirect({
+      scopes: ["user.read"]
+    })
   }
+ 
 }

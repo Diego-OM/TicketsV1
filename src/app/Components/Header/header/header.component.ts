@@ -5,6 +5,9 @@ import { ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { QRServicesService } from '../../../Services/qrservices.service';
 import { QRCode } from '../../../Classes/QRCode'; 
+import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
+import { AccountInfo, AuthenticationResult, EventMessage, InteractionStatus } from '@azure/msal-browser';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -18,16 +21,47 @@ export class HeaderComponent implements OnInit {
   enableScanner = false;
   confirmationMessage = "";
   displayConfirmationCheckMark = "none";
+  isAuthenticated = false;
+  currentUser : string | undefined;
+  
 
   @ViewChild('scanner', { static: false })
   scanner: ZXingScannerComponent = new ZXingScannerComponent;
 
   allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
 
-  constructor(private router: Router, private qrService :QRServicesService) { }
+  constructor(private router: Router, 
+    private qrService :QRServicesService,
+    private msalService: MsalService,
+    private msalBroadcasService: MsalBroadcastService) { }
 
   ngOnInit(): void {
+    this.msalBroadcasService.inProgress$
+    .pipe(
+      filter((status: InteractionStatus) => status === InteractionStatus.None)
+    )
+    .subscribe(() => {
+      this.setAuthenticationStatus()
+      
+    })
+
+    
+
     this.enableScanner = false;
+
+  }
+
+  setAuthenticationStatus():void {
+     let activeAccount = this.msalService.instance.getActiveAccount();
+
+    if(!activeAccount && this.msalService.instance.getAllAccounts().length > 0){
+      this.isAuthenticated = true;
+      activeAccount = this.msalService.instance.getAllAccounts()[0];
+      this.msalService.instance.setActiveAccount(activeAccount);
+      sessionStorage.setItem("authentcatedUser",activeAccount.username);
+      this.currentUser = activeAccount.username
+      console.log(this.currentUser)
+    }
   }
 
   goToEventos(){
@@ -96,6 +130,23 @@ export class HeaderComponent implements OnInit {
       }
     })
      
+  }
+
+  login(){
+    this.msalService.loginPopup({
+      scopes:["user.read"]
+    }).pipe()
+  }
+
+  logOut(){
+    this.msalService.logoutRedirect().subscribe(data => {
+      this.navigateHome()
+    });
+
+    this.isAuthenticated = false;
+    sessionStorage.clear()
+
+
   }
 
 }

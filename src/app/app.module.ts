@@ -10,6 +10,19 @@ import { TicketsmodalComponent } from './Modals/TicketsModal/ticketsmodal/ticket
 import { EventsComponent } from './Components/Events/events/events.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MsalModule, MsalService, MSAL_INSTANCE, MsalRedirectComponent } from '@azure/msal-angular';
+import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+      clientId: 'c0aea600-7edf-4392-9b9d-db0962859a18', 
+      authority: 'https://login.microsoftonline.com/27d76b99-0ce0-463e-b4b5-d9cc9e9910a8', 
+      redirectUri: '/auth',
+      postLogoutRedirectUri: '/bodyComponent'
+    }
+  })
+}
 
 @NgModule({
   declarations: [
@@ -25,9 +38,16 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    MsalModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: MSAL_INSTANCE,
+      useFactory: MSALInstanceFactory
+    },
+    MsalService
+  ],
+  bootstrap: [AppComponent, MsalRedirectComponent]
 })
 export class AppModule { }
