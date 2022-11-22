@@ -72,6 +72,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl("/bodyComponent");
   }
 
+  goToPricing(){
+    this.router.navigateByUrl("/pricingComponent");
+  }
+
 
   closeConfirmation(){
     this.displayConfirmation = "none";

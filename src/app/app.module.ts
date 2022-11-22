@@ -10,8 +10,9 @@ import { TicketsmodalComponent } from './Modals/TicketsModal/ticketsmodal/ticket
 import { EventsComponent } from './Components/Events/events/events.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { MsalModule, MsalService, MSAL_INSTANCE, MsalRedirectComponent } from '@azure/msal-angular';
-import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { MsalModule, MsalService, MSAL_INSTANCE, MsalRedirectComponent, MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalGuard, MsalBroadcastService } from '@azure/msal-angular';
+import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { PricingComponent } from './Components/Pricing/pricing/pricing.component';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -24,6 +25,15 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   })
 }
 
+export function MsalGuardConfigFactory(): MsalGuardConfiguration { 
+  return {
+    interactionType: InteractionType.Redirect,
+    authRequest: {
+      scopes: ["user.read"]
+    }
+  }
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +41,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     BodyComponent,
     EventsmodalComponent,
     TicketsmodalComponent,
-    EventsComponent
+    EventsComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +57,13 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory
     },
-    MsalService
+    {
+      provide: MSAL_GUARD_CONFIG,
+      useFactory: MsalGuardConfigFactory
+    },
+    MsalService,
+    MsalBroadcastService,
+    MsalGuard
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })
