@@ -29,7 +29,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "src" # App source code path
           api_location: ""
-          output_location: "public"
+          output_location: "dist/ecommerce-v1"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
