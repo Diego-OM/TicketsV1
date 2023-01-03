@@ -8,6 +8,7 @@ import { QRCode } from '../../../Classes/QRCode';
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { AccountInfo, AuthenticationResult, EventMessage, InteractionStatus } from '@azure/msal-browser';
 import { filter } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/Services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -33,17 +34,17 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, 
     private qrService :QRServicesService,
     private msalService: MsalService,
-    private msalBroadcasService: MsalBroadcastService) { }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.msalBroadcasService.inProgress$
-    .pipe(
-      filter((status: InteractionStatus) => status === InteractionStatus.None)
-    )
-    .subscribe(() => {
-      this.setAuthenticationStatus()
+    // this.msalBroadcasService.inProgress$
+    // .pipe(
+    //   filter((status: InteractionStatus) => status === InteractionStatus.None)
+    // )
+    // .subscribe(() => {
+    //   this.setAuthenticationStatus()
       
-    })
+    // })
 
     
 
@@ -51,18 +52,7 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  setAuthenticationStatus():void {
-     let activeAccount = this.msalService.instance.getActiveAccount();
 
-    if(!activeAccount && this.msalService.instance.getAllAccounts().length > 0){
-      this.isAuthenticated = true;
-      activeAccount = this.msalService.instance.getAllAccounts()[0];
-      this.msalService.instance.setActiveAccount(activeAccount);
-      sessionStorage.setItem("authentcatedUser",activeAccount.username);
-      this.currentUser = activeAccount.username
-      console.log(this.currentUser)
-    }
-  }
 
   goToEventos(){
     this.router.navigateByUrl('/eventsComponent')
@@ -137,9 +127,9 @@ export class HeaderComponent implements OnInit {
   }
 
   login(){
-    this.msalService.loginPopup({
-      scopes:["user.read"]
-    }).pipe()
+    debugger
+    this.authenticationService.login();
+    this.isAuthenticated = this.authenticationService.isAuthenticated;
   }
 
   logOut(){
