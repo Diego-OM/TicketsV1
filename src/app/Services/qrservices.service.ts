@@ -3,11 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { debug } from 'console';
-
-interface Tickets {
-  idBoleto: string;
-  nombreDelEvento: string;
-}
+import { TicketV1 } from '../Classes/TicketV1';
 
 export interface IQRCode{
   nombreDelEvento: string,
@@ -21,42 +17,46 @@ export interface IQRCode{
 export class QRServicesService {
   constructor(private httpClient : HttpClient) { }
 
-  createQrCodes(nombreDelEvento:string,ticketNumber:number){
+  createQrCodes(eventName:string,ticketAmount:number){
     debugger
     var body = {
-      "nombreDelEvento": nombreDelEvento,
-      "numeroDeBoletos": ticketNumber,
+      "EventName": eventName,
+      "TicketAmount": ticketAmount
     }
     
     return this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?code=bdKzELtX4X_p1Hrd_1zSW64lrDYk8M5Oqvv3jieporW5AzFuo9luog==',body);
   }
 
-  validateQR(idBoleto:string,nombreDelEvento:string){
+  validateQR(ticketID:string,eventName:string){
     debugger
-    var body = {
-      "idBoleto": "Ticket ("+idBoleto+")",
-      "nombreDelEvento": nombreDelEvento
+    
+    var ticketV1 : TicketV1 = {
+      TicketID: "Ticket ("+ticketID+")",
+      EventName: eventName,
+      TicketStatus: "New",
+      TicketGeneratedDate: new Date(),
+      TicketSaleDate: new Date(),
     }
    
    return this.httpClient.post('https://ticketsv1.azurewebsites.net/api/ValidateQR?code=F4gfojuGu4DA46DQz8gSG6Zdmd4thftvTndro3MlYFfpAzFu8Mye1A==',
-   body);
+   ticketV1);
   }
 
-  getQrCodeList(idBoleto: string, nombreDelEvento:string) {
+  getQrCodeList(ticketID: string, eventName:string) {
    debugger
     var body = {
-      "idBoleto": idBoleto,
-      "nombreDelEvento": nombreDelEvento
+      "idBoleto": ticketID,
+      "nombreDelEvento": eventName
     }
 
     return this.httpClient.post("https://ticketsv1.azurewebsites.net/api/GetQRCodesList?code=wZFjuR-ac11kxDRGLp_M8d504K2-6iivj1eXQ38yTPA5AzFu67Bf0A==", body);
   }
 
-  getEventList(nombreDelEvento:string){
+  getEventList(eventName:string){
     debugger
     var body = {
       "idBoleto": '',
-      "nombreDelEvento": nombreDelEvento
+      "nombreDelEvento": eventName
     }
 
     return this.httpClient.get("https://ticketsv1.azurewebsites.net/api/GetEventList?code=uGnPW_Cf2_lp1J7YVh_F4fDt6Lg-YXyeBESwRu_FSdrlAzFuHX3sJQ==")
