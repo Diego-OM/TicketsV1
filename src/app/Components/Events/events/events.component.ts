@@ -27,7 +27,6 @@ export class EventsComponent implements OnInit {
     
     this.route.paramMap.subscribe((params) => {
       this.id = params.get('id');
-      debugger
       this.qrService.getQrCodeList('',this.id).subscribe(data => 
         {
           this.tableData = data;

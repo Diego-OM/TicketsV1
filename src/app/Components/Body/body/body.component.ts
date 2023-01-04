@@ -5,6 +5,8 @@ import { QRServicesService } from '../../../Services/qrservices.service';
 import { SendgridService } from 'src/app/Services/sendgrid.service';
 import { ThisReceiver } from '@angular/compiler';
 import { stringify } from 'querystring';
+import { List } from '@zxing/library/esm/customTypings';
+import { Observable, observable } from 'rxjs';
 
 @Component({
   selector: 'app-body',
@@ -16,13 +18,15 @@ export class BodyComponent implements OnInit {
   emailResponse: any;
   displayEventsModal = "none";
   numberOfEvents = 0;
+
   constructor(private router: Router,
     private qrCodeService: QRServicesService,
     private sendGridService: SendgridService) { }
 
-  ngOnInit(): void {
-    this.getEventList();
+  async ngOnInit() {
+    this.getEventAmount();
   }
+
   displayStyle = "none";
   displayTicketTable = "none";
   displaySpinner = "none";
@@ -42,11 +46,11 @@ export class BodyComponent implements OnInit {
       this.displaySpinner = "none";
       this.displayConfirmationOrError = "block";
       this.qrCodeFormGroup.reset();
+      this.getEventAmount();
     }, 5000);
 
     
    } catch (error) {
-    debugger
       console.log(error);
    }
   }
@@ -66,7 +70,7 @@ export class BodyComponent implements OnInit {
   
   openEventsModal() {
     this.displayEventsModal = "block";
-    this.getEventList();
+    this.getEventAmount();
     
   }
 
@@ -74,13 +78,16 @@ export class BodyComponent implements OnInit {
     this.displayEventsModal = "none";
   }
 
-  getEventList(){
-    this.qrCodeService.getEventList().subscribe(data => {
-      
-      this.eventList = data;
-      this.numberOfEvents = this.eventList.length;
+  async getEventAmount(){
+    await this.qrCodeService.getEventList().then(p => {
+      p.subscribe(eventList => {
+        this.numberOfEvents = Object.entries(eventList).length;
+        this.eventList = eventList;
+      })
     })
-  }
+    }
+
+ 
 
   navigateToEvent(event:Object){
     this.router.navigateByUrl("/eventsComponent/" + event);

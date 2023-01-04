@@ -18,7 +18,6 @@ export class QRServicesService {
   constructor(private httpClient : HttpClient) { }
 
   createQrCodes(eventName:string,ticketAmount:number){
-    debugger
     var body = {
       "EventName": eventName,
       "TicketAmount": ticketAmount
@@ -28,7 +27,6 @@ export class QRServicesService {
   }
 
   validateQR(ticketID:string,eventName:string){
-    debugger
     
     var ticketV1 : TicketV1 = {
       TicketID: "Ticket ("+ticketID+")",
@@ -43,7 +41,6 @@ export class QRServicesService {
   }
 
   getQrCodeList(ticketID: string, eventName:string) {
-   debugger
     var body = {
       "idBoleto": ticketID,
       "nombreDelEvento": eventName
@@ -52,9 +49,8 @@ export class QRServicesService {
     return this.httpClient.post("https://ticketsv1.azurewebsites.net/api/GetQRCodesList?code=wZFjuR-ac11kxDRGLp_M8d504K2-6iivj1eXQ38yTPA5AzFu67Bf0A==", body);
   }
 
-  getEventList(){
-  
-    return this.httpClient.get("https://ticketsv1.azurewebsites.net/api/GetEventList?code=uGnPW_Cf2_lp1J7YVh_F4fDt6Lg-YXyeBESwRu_FSdrlAzFuHX3sJQ==")
+  async getEventList() {
+   return this.httpClient.get("https://ticketsv1.azurewebsites.net/api/GetEventList?code=uGnPW_Cf2_lp1J7YVh_F4fDt6Lg-YXyeBESwRu_FSdrlAzFuHX3sJQ==") as Observable<any>;
   }
 
 }

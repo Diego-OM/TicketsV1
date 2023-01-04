@@ -8,10 +8,12 @@
     <div class="col-md-2 offset-md-2">
       <div class="card" (click)="openEventsModal()">
         <div class="card-header"> 
-          <h6 style="text-align: center;">Eventos</h6>
+          <h6 style="text-align: center;">Events</h6>
         </div>
         <div class="card-body">
-          <h1 style="text-align: center;">{{this.numberOfEvents}}</h1>
+          <ng-container >
+            <h1 style="text-align: center;">{{this.numberOfEvents}}</h1>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -19,7 +21,7 @@
     <div class="col-md-2">
       <div class="card" (click)="openTicketTableModal()">
         <div class="card-header">
-          <h6 style="text-align: center;">Boletos Activos</h6>
+          <h6 style="text-align: center;">Active Tickets</h6>
         </div>
         <div class="card-body">
           <h1 style="text-align: center;">54</h1>
@@ -30,7 +32,7 @@
     <div class="col-md-2">
       <div class="card" (click)="openEventsModal()">
         <div class="card-header">
-          <h6 style="text-align: center;">Boletos Canjeados</h6>
+          <h6 style="text-align: center;">Checked Tickets</h6>
         </div>
         <div class="card-body">
           <h1 style="text-align: center;">13</h1>
@@ -41,7 +43,7 @@
     <div class="col-md-2">
       <div class="card" (click)="openEventsModal()">
         <div class="card-header">
-          <h6 style="text-align: center;">Boletos Cancelados</h6>
+          <h6 style="text-align: center;">Cancelled Tickets</h6>
         </div>
         <div class="card-body">
           <h1 style="text-align: center;">13</h1>
@@ -53,26 +55,26 @@
   <div class="col-md-8 offset-md-2" style="padding-top: 3%;">
         <div class="card">
           <div class="card-header">
-            <h6 style="text-align: center;">Generate QR</h6>
+            <h6 style="text-align: center;">Create a new Event and Tickets</h6>
           </div>
 
           <div class="card-body">
 
             <form #form [formGroup]="qrCodeFormGroup" (ngSubmit)="onSubmit(qrCodeFormGroup)">
               <div class="form-group">
-                <label for="">Nombre del Evento</label>
+                <label for="">Event Name</label>
                 <br>
                 <input id="evento" formControlName="evento" type="text" class="form-control">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
               </div>
               <br>
               <div class="form-group">
-                <label for="">Numero de Boletos</label>
+                <label for="">Ticket Amount</label>
                 <br>
                 <input id="numeroDeBoletos" formControlName="numeroDeBoletos" type="text" class="form-control">
               </div>
               <br>
-              <button class="btn btn-primary" type="submit" [disabled]="!qrCodeFormGroup.valid" >Crear Codigos Qr</button>
+              <button class="btn btn-primary" type="submit" [disabled]="!qrCodeFormGroup.valid" >Generate Tickets</button>
              
             </form>
 
