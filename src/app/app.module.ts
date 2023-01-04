@@ -19,7 +19,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: 'c0aea600-7edf-4392-9b9d-db0962859a18', 
       authority: 'https://login.microsoftonline.com/27d76b99-0ce0-463e-b4b5-d9cc9e9910a8', 
-      redirectUri: '/auth',
+      redirectUri: 'https://nice-wave-07850e810.2.azurestaticapps.net/auth/auth',
       postLogoutRedirectUri: '/bodyComponent'
     }
   })
