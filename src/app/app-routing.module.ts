@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'pricingComponent', component: PricingComponent },
   { path: 'eventsComponent/:id', component: EventsComponent },
   { path: 'bodyComponent', component: BodyComponent},
-  { path: '',   redirectTo: '/bodyComponent', pathMatch: 'full' }, 
+  { path: '',   redirectTo: '/', pathMatch: 'full' }, 
   { path: '**', component: BodyComponent },
 ]
 

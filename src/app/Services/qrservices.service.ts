@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { debug } from 'console';
 
 interface Tickets {
   idBoleto: string;
@@ -21,13 +22,13 @@ export class QRServicesService {
   constructor(private httpClient : HttpClient) { }
 
   createQrCodes(nombreDelEvento:string,ticketNumber:number){
-    
+    debugger
     var body = {
       "nombreDelEvento": nombreDelEvento,
       "numeroDeBoletos": ticketNumber,
     }
     
-    return this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?code=bdKzELtX4X_p1Hrd_1zSW64lrDYk8M5Oqvv3jieporW5AzFuo9luog==',body);
+    return this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?clientId=apim-TicketsApiManagement',body);
   }
 
   validateQR(idBoleto:string,nombreDelEvento:string){
@@ -42,7 +43,7 @@ export class QRServicesService {
   }
 
   getQrCodeList(idBoleto: string, nombreDelEvento:string) {
-   
+   debugger
     var body = {
       "idBoleto": idBoleto,
       "nombreDelEvento": nombreDelEvento
@@ -52,7 +53,7 @@ export class QRServicesService {
   }
 
   getEventList(nombreDelEvento:string){
-
+    debugger
     var body = {
       "idBoleto": '',
       "nombreDelEvento": nombreDelEvento
