@@ -18,7 +18,6 @@ export class AuthenticationService {
   }
 
   logOut(){
-    debugger
     this.msalService.logoutRedirect().subscribe(data => {
      
     });
@@ -30,7 +29,6 @@ export class AuthenticationService {
   }
 
   setAuthenticationStatus():void {
-    debugger
     let activeAccount = this.msalService.instance.getActiveAccount();
 
    if(!activeAccount && this.msalService.instance.getAllAccounts().length > 0){
