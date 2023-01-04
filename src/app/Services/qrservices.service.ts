@@ -28,7 +28,7 @@ export class QRServicesService {
       "numeroDeBoletos": ticketNumber,
     }
     
-    return this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?clientId=apim-TicketsApiManagement',body);
+    return this.httpClient.post('https://ticketsv1.azurewebsites.net/api/CreateQrBulk?code=bdKzELtX4X_p1Hrd_1zSW64lrDYk8M5Oqvv3jieporW5AzFuo9luog==',body);
   }
 
   validateQR(idBoleto:string,nombreDelEvento:string){
