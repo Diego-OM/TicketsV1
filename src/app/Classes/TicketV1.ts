@@ -4,5 +4,4 @@ export class TicketV1 {
     "TicketStatus": string
     "TicketGeneratedDate": Date
     "TicketSaleDate": Date
-
 }

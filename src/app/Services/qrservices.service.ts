@@ -52,13 +52,8 @@ export class QRServicesService {
     return this.httpClient.post("https://ticketsv1.azurewebsites.net/api/GetQRCodesList?code=wZFjuR-ac11kxDRGLp_M8d504K2-6iivj1eXQ38yTPA5AzFu67Bf0A==", body);
   }
 
-  getEventList(eventName:string){
-    debugger
-    var body = {
-      "idBoleto": '',
-      "nombreDelEvento": eventName
-    }
-
+  getEventList(){
+  
     return this.httpClient.get("https://ticketsv1.azurewebsites.net/api/GetEventList?code=uGnPW_Cf2_lp1J7YVh_F4fDt6Lg-YXyeBESwRu_FSdrlAzFuHX3sJQ==")
   }
 

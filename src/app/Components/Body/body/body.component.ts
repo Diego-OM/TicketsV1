@@ -21,7 +21,7 @@ export class BodyComponent implements OnInit {
     private sendGridService: SendgridService) { }
 
   ngOnInit(): void {
-    this.getEventList('');
+    this.getEventList();
   }
   displayStyle = "none";
   displayTicketTable = "none";
@@ -32,8 +32,6 @@ export class BodyComponent implements OnInit {
     evento: new UntypedFormControl('', Validators.required),
     numeroDeBoletos: new UntypedFormControl('', Validators.required)
   })
-
-  
 
   onSubmit(args: any){
    try {
@@ -68,7 +66,7 @@ export class BodyComponent implements OnInit {
   
   openEventsModal() {
     this.displayEventsModal = "block";
-    this.getEventList('test1');
+    this.getEventList();
     
   }
 
@@ -76,8 +74,8 @@ export class BodyComponent implements OnInit {
     this.displayEventsModal = "none";
   }
 
-  getEventList(event: string){
-    this.qrCodeService.getEventList(event).subscribe(data => {
+  getEventList(){
+    this.qrCodeService.getEventList().subscribe(data => {
       
       this.eventList = data;
       this.numberOfEvents = this.eventList.length;
